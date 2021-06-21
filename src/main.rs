@@ -6,8 +6,10 @@ extern crate num;
 #[macro_use] extern crate num_derive;
 
 extern crate hmac;
+extern crate sha1;
 extern crate sha2;
 extern crate lazy_static;
+extern crate hex;
 
 #[macro_use] mod utils;
 
@@ -25,7 +27,8 @@ fn main(){
         getGJAccountComments::getGJAccountComments20, getGJAccountComments::getGJAccountComments20GET,
         getGJCommentHistory::getGJCommentHistory, getGJCommentHistory::getGJCommentHistoryGET,
         getGJComments::getGJComments21, getGJComments::getGJComments21GET,
-        uploadGJAccComment::uploadGJAccComment20, uploadGJAccComment::uploadGJAccComment20GET
+        uploadGJAccComment::uploadGJAccComment20, uploadGJAccComment::uploadGJAccComment20GET,
+        uploadGJComment::uploadGJComment21, uploadGJComment::uploadGJComment21GET
     ])
     .launch();
 }

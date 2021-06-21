@@ -20,7 +20,11 @@ pub fn get_next_comment_id() -> i32 {
     // Get the total amount of comments
     let mut count_rows: Row = CONN.lock().unwrap().query_first("SELECT max(commentID)+1 FROM comments;").unwrap().unwrap();
 
-    let num: i32 = count_rows.take("max(commentID)+1").unwrap();
-
-    num
+    let num = count_rows.take("max(commentID)+1");
+    if num == None || num == Some(Value::NULL) {
+        return 0;
+    } else {
+        let num: i32 = count_rows.take("max(commentID)+1").unwrap();
+        return num;
+    }
 }

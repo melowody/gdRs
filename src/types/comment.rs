@@ -8,9 +8,10 @@ pub struct LevelComment {
     pub comment: std::string::String,
     pub level_id: u32,
     pub dat: u128,
-    pub likes: u32,
+    pub likes: i32,
     pub author_id: u32,
     pub percentage: u32,
+    pub is_spam: bool
 }
 
 impl PartialEq for LevelComment {
@@ -29,15 +30,15 @@ impl LevelComment {
         let dur: u128 = (curr - self.dat) / 1000;
 
         if dur < 60 {
-            return format!("{} second{} ago", dur, match dur==1 { false=> "s", true=> "" }).to_string();
+            return format!("{} second{}", dur, match dur==1 { false=> "s", true=> "" }).to_string();
         } else if dur < 3600 {
-            return format!("{} minute{} ago", dur / 60, match dur/60==1 { false=> "s", true=> "" }).to_string();
+            return format!("{} minute{}", dur / 60, match dur/60==1 { false=> "s", true=> "" }).to_string();
         } else if dur < 86400 {
-            return format!("{} hour{} ago", dur / 3600, match dur/3600==1 { false=> "s", true=> "" }).to_string();
+            return format!("{} hour{}", dur / 3600, match dur/3600==1 { false=> "s", true=> "" }).to_string();
         } else if dur < 31556952 {
-            return format!("{} day{} ago", dur / 86400, match dur/86400==1 { false=> "s", true=> "" }).to_string();
+            return format!("{} day{}", dur / 86400, match dur/86400==1 { false=> "s", true=> "" }).to_string();
         } else {
-            return format!("{} year{} ago", dur / 2629800, match dur/2629800==1 { false=> "s", true=> "" }).to_string();
+            return format!("{} year{}", dur / 2629800, match dur/2629800==1 { false=> "s", true=> "" }).to_string();
         }
 
     }
@@ -67,15 +68,15 @@ impl AccComment {
         let dur: u128 = (curr - self.dat) / 1000;
 
         if dur < 60 {
-            return format!("{} second{} ago", dur, match dur==1 { false=> "s", true=> "" }).to_string();
+            return format!("{} second{}", dur, match dur==1 { false=> "s", true=> "" }).to_string();
         } else if dur < 3600 {
-            return format!("{} minute{} ago", dur / 60, match dur/60==1 { false=> "s", true=> "" }).to_string();
+            return format!("{} minute{}", dur / 60, match dur/60==1 { false=> "s", true=> "" }).to_string();
         } else if dur < 86400 {
-            return format!("{} hour{} ago", dur / 3600, match dur/3600==1 { false=> "s", true=> "" }).to_string();
+            return format!("{} hour{}", dur / 3600, match dur/3600==1 { false=> "s", true=> "" }).to_string();
         } else if dur < 31556952 {
-            return format!("{} day{} ago", dur / 86400, match dur/86400==1 { false=> "s", true=> "" }).to_string();
+            return format!("{} day{}", dur / 86400, match dur/86400==1 { false=> "s", true=> "" }).to_string();
         } else {
-            return format!("{} year{} ago", dur / 2629800, match dur/2629800==1 { false=> "s", true=> "" }).to_string();
+            return format!("{} year{}", dur / 2629800, match dur/2629800==1 { false=> "s", true=> "" }).to_string();
         }
 
     }

@@ -6,3 +6,5 @@ pub mod deleteGJComment;
 pub mod getGJAccountComments;
 #[allow(non_snake_case)]
 pub mod getGJCommentHistory;
+#[allow(non_snake_case)]
+pub mod getGJComments;

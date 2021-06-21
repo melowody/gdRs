@@ -1,7 +1,8 @@
 extern crate base64;
 
 use std::time::*;
-use base64::encode;
+use base64::{encode, decode};
+use mysql::*;
 
 pub struct LevelComment {
     pub comment_id: u32,
@@ -41,6 +42,20 @@ impl LevelComment {
             return format!("{} year{}", dur / 2629800, match dur/2629800==1 { false=> "s", true=> "" }).to_string();
         }
 
+    }
+
+    /// Converts a MySQL Row to a LevelComment
+    pub fn from_row(mut row: Row) -> LevelComment {
+        LevelComment {
+            comment_id: row.take("commentID").unwrap(),
+            comment: String::from_utf8(decode(row.take::<String,_>("comment").unwrap()).unwrap()).unwrap(),
+            level_id: row.take("sourceID").unwrap(),
+            dat: row.take("date").unwrap(),
+            likes: row.take("likes").unwrap(),
+            author_id: row.take("authorID").unwrap(),
+            percentage: row.take("percent").unwrap(),
+            is_spam: row.take("isSpam").unwrap(),
+        }
     }
 }
 
@@ -84,6 +99,17 @@ impl AccComment {
     /// Formats the account comment into Robtop's format
     pub fn format(&self) -> String {
         format!("2~{}~4~{}~9~{}~6~{}", encode(&self.comment), self.likes, self.format_date(), self.comment_id).to_string()
+    }
+
+    /// Converts a MySQL Row to an AccComment
+    pub fn from_row(mut row: Row) -> AccComment {
+        AccComment {
+            comment_id: row.take("commentID").unwrap(),
+            comment: String::from_utf8(decode(row.take::<String,_>("comment").unwrap()).unwrap()).unwrap(),
+            account_id: row.take("sourceID").unwrap(),
+            dat: row.take("date").unwrap(),
+            likes: row.take("likes").unwrap()
+        }
     }
 }
 

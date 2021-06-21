@@ -24,7 +24,8 @@ fn main(){
         deleteGJComment::deleteGJComment20, deleteGJComment::deleteGJComment20GET,
         getGJAccountComments::getGJAccountComments20, getGJAccountComments::getGJAccountComments20GET,
         getGJCommentHistory::getGJCommentHistory, getGJCommentHistory::getGJCommentHistoryGET,
-        getGJComments::getGJComments21, getGJComments::getGJComments21GET
+        getGJComments::getGJComments21, getGJComments::getGJComments21GET,
+        uploadGJAccComment::uploadGJAccComment20, uploadGJAccComment::uploadGJAccComment20GET
     ])
     .launch();
 }

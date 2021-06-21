@@ -8,3 +8,5 @@ pub mod getGJAccountComments;
 pub mod getGJCommentHistory;
 #[allow(non_snake_case)]
 pub mod getGJComments;
+#[allow(non_snake_case)]
+pub mod uploadGJAccComment;

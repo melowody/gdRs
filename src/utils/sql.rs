@@ -1,6 +1,7 @@
 use mysql::*;
 use lazy_static::lazy_static;
 use std::sync::Mutex;
+use mysql::prelude::*;
 
 lazy_static! {
     pub static ref CONN: Mutex<PooledConn> = {
@@ -12,4 +13,14 @@ lazy_static! {
 
         Mutex::new(connection)
     };
+}
+
+pub fn get_next_comment_id() -> i32 {
+
+    // Get the total amount of comments
+    let mut count_rows: Row = CONN.lock().unwrap().query_first("SELECT max(commentID)+1 FROM comments;").unwrap().unwrap();
+
+    let num: i32 = count_rows.take("max(commentID)+1").unwrap();
+
+    num
 }

@@ -42,18 +42,7 @@ pub fn getGJComments21(data: Form<GetCommentsForm>) -> String {
             "source_id" => data.levelID,
             "type_id" => comment::CommentType::LevelComment as i32
         },
-        |mut row: Row| {
-            comment::LevelComment {
-                comment_id: row.take("commentID").unwrap(),
-                comment: row.take("comment").unwrap(),
-                level_id: row.take("sourceID").unwrap(),
-                dat: row.take("date").unwrap(),
-                likes: row.take("likes").unwrap(),
-                author_id: row.take("authorID").unwrap(),
-                percentage: row.take("percent").unwrap(),
-                is_spam: row.take("isSpam").unwrap(),
-            }
-        }
+        comment::LevelComment::from_row
     ).unwrap();
 
     let mut out: String = comments

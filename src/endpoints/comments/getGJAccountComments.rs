@@ -33,15 +33,7 @@ pub fn getGJAccountComments20(data: Form<GetAccCommentForm>) -> String {
             "type_id" => comment::CommentType::AccountComment as i32,
             "page" => data.page * 10,
         },
-        |mut row: Row| {
-            comment::AccComment {
-                comment_id: row.take("commentID").unwrap(),
-                comment: row.take("comment").unwrap(),
-                account_id: row.take("sourceID").unwrap(),
-                dat: row.take("date").unwrap(),
-                likes: row.take("likes").unwrap()
-            }
-        }
+        comment::AccComment::from_row
     ).unwrap();
 
     // Format the vector of Strings and join them with the pipe character

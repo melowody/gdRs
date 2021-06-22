@@ -1,7 +1,11 @@
-use crate::sha2::Digest;
+use sha2::Digest;
+use crate::utils::*;
+use crate::types::*;
 use sha1::{Sha1, Digest as sDigest};
 use base64::encode;
 use hex::encode as encode_hex;
+use mysql::*;
+use mysql::prelude::*;
 
 /// Hash a message with salt
 /// 
@@ -42,4 +46,52 @@ pub fn xor_cipher(string: &[u8], key: &[u8]) -> String {
     }
 
     result
+}
+
+pub fn hash_salt(mut base: String, salt: &str) -> String {
+    base.push_str(salt);
+
+    let mut hasher = Sha1::new();
+    hasher.update(base);
+
+    let hashed = hasher.finalize();
+    let hashed: &[u8] = hashed.as_slice();
+    encode_hex(hashed)
+}
+
+pub fn hash_pack(ids: Vec<i32>) -> String {
+
+    let mut hash: String = String::new();
+
+    for id in ids {
+
+        let pack: Row = sql::CONN.lock().unwrap().exec_first(format!("SELECT * FROM mappacks WHERE packID=:id_num"),
+            mysql::params! {
+                "id_num" => id,
+            }
+        ).unwrap().unwrap();
+
+        let pack: level_pack::MapPack = level_pack::MapPack::from_row(pack);
+
+        let id_str: String = id.to_string();
+        let id_str: &[u8] = id_str.as_bytes();
+
+        hash.push(id_str[0] as char);
+        hash.push(id_str[id_str.len() - 1] as char);
+        hash.push_str(&pack.stars.to_string());
+        hash.push_str(&pack.coins.to_string());
+
+    }
+
+    hash.push_str("xI25fpAapCQg");
+
+    println!("{}", hash);
+
+    let mut hasher = Sha1::new();
+    hasher.update(hash);
+
+    let hashed = hasher.finalize();
+    let hashed: &[u8] = hashed.as_slice();
+
+    encode_hex(hashed)
 }

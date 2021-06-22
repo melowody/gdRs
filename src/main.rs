@@ -17,6 +17,7 @@ mod types;
 mod endpoints;
 
 use crate::endpoints::comments::*;
+use crate::endpoints::level_packs::*;
 use crate::utils::*;
 
 fn main(){
@@ -28,7 +29,9 @@ fn main(){
         getGJCommentHistory::getGJCommentHistory, getGJCommentHistory::getGJCommentHistoryGET,
         getGJComments::getGJComments21, getGJComments::getGJComments21GET,
         uploadGJAccComment::uploadGJAccComment20, uploadGJAccComment::uploadGJAccComment20GET,
-        uploadGJComment::uploadGJComment21, uploadGJComment::uploadGJComment21GET
+        uploadGJComment::uploadGJComment21, uploadGJComment::uploadGJComment21GET,
+        getGJGauntlets::getGJGauntlets21, getGJGauntlets::getGJGauntlets21GET,
+        getGJMapPacks::getGJMapPacks21, getGJMapPacks::getGJMapPacks21GET
     ])
     .launch();
 }

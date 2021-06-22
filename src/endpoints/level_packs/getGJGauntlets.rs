@@ -10,8 +10,8 @@ use rocket::http::RawStr;
 #[derive(FromForm)]
 pub struct GetGauntletsForm<'f> {
     secret: &'f RawStr,
-    gameVersion: Option<i32>,
-    binaryVersion: Option<i32>,
+    gameVersion: Option<u32>,
+    binaryVersion: Option<u32>,
     gdw: Option<i32>,
 }
 #[warn(dead_code)]
@@ -47,7 +47,7 @@ pub fn getGJGauntlets21(data: Form<GetGauntletsForm>) -> String {
         .join("|");
     
     out.push('#');
-    out.push_str(&crypto::hash_salt(outdata, "xI25fpAapCQg"));
+    out.push_str(&crypto::sha1_salt(outdata, "xI25fpAapCQg"));
 
     out
 }

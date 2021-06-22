@@ -9,13 +9,13 @@ use rocket::http::RawStr;
 #[allow(dead_code)]
 #[derive(FromForm)]
 pub struct DeleteCommentForm<'f> {
-    accountID: i32,
+    accountID: u32,
     gjp: &'f RawStr,
-    commentID: i32,
-    levelID: i32,
+    commentID: u32,
+    levelID: u32,
     secret: &'f RawStr,
-    gameVersion: Option<i32>,
-    binaryVersion: Option<i32>,
+    gameVersion: Option<u32>,
+    binaryVersion: Option<u32>,
     gdw: Option<i32>
 }
 #[warn(dead_code)]
@@ -48,7 +48,7 @@ pub fn deleteGJComment20(data: Form<DeleteCommentForm>) -> String {
     if res == 0 {
 
         // Get the author of the level the comment is on
-        let authorID: i32 = sql::CONN.lock().unwrap().exec_first("SELECT authorID FROM levels WHERE levelID=:source_id",
+        let authorID: u32 = sql::CONN.lock().unwrap().exec_first("SELECT authorID FROM levels WHERE levelID=:source_id",
             mysql::params!{
                 "source_id" => data.levelID,
             }

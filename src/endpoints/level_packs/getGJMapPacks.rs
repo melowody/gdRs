@@ -10,11 +10,11 @@ use rocket::http::RawStr;
 #[derive(FromForm)]
 pub struct GetMapPacksForm<'f> {
     secret: &'f RawStr,
-    gameVersion: Option<i32>,
-    binaryVersion: Option<i32>,
+    gameVersion: Option<u32>,
+    binaryVersion: Option<u32>,
     gdw: Option<i32>,
-    page: Option<i32>,
-    count: Option<i32>,
+    page: Option<u32>,
+    count: Option<u32>,
 }
 #[warn(dead_code)]
 
@@ -26,9 +26,9 @@ pub fn getGJMapPacks21(data: Form<GetMapPacksForm>) -> String {
         return "-1".to_string();
     }
 
-    let count: i32 = remove!(data.count, 10);
-    let page: i32 = remove!(data.page, 0);
-    let mut ids: Vec<i32> = vec![];
+    let count: u32 = remove!(data.count, 10);
+    let page: u32 = remove!(data.page, 0);
+    let mut ids: Vec<u32> = vec![];
 
     // Get a vector of all Gauntlets
     let packs: Vec<level_pack::MapPack> = sql::CONN.lock().unwrap().exec_map("SELECT * FROM mappacks LIMIT :limit_num OFFSET :offset_num",
@@ -46,7 +46,7 @@ pub fn getGJMapPacks21(data: Form<GetMapPacksForm>) -> String {
     let mut out: String = packs
         .into_iter()
         .map(|m: level_pack::MapPack| {
-            format!("1:{}:2:{}:3:{}:4:{}:5:{}:6:{}:7:{}:8:{}", m.pack_id, m.name, m.levels.into_iter().map(|x| x.to_string()).collect::<Vec<String>>().join(","), m.stars, m.coins, m.difficulty as i32, m.text_color.format(), m.bar_color.format())
+            format!("1:{}:2:{}:3:{}:4:{}:5:{}:6:{}:7:{}:8:{}", m.pack_id, m.name, m.levels.into_iter().map(|x| x.to_string()).collect::<Vec<String>>().join(","), m.stars, m.coins, m.difficulty as u32, m.text_color.format(), m.bar_color.format())
         })
         .collect::<Vec<String>>()
         .join("|");

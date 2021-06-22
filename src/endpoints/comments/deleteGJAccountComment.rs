@@ -9,12 +9,12 @@ use rocket::http::RawStr;
 #[allow(dead_code)]
 #[derive(FromForm)]
 pub struct DeleteAccCommentForm<'f> {
-    accountID: i32,
+    accountID: u32,
     gjp: &'f RawStr,
-    commentID: i32,
+    commentID: u32,
     secret: &'f RawStr,
-    gameVersion: Option<i32>,
-    binaryVersion: Option<i32>,
+    gameVersion: Option<u32>,
+    binaryVersion: Option<u32>,
     gdw: Option<i32>
 }
 #[warn(dead_code)]

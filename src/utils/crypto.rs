@@ -48,7 +48,7 @@ pub fn xor_cipher(string: &[u8], key: &[u8]) -> String {
     result
 }
 
-pub fn hash_salt(mut base: String, salt: &str) -> String {
+pub fn sha1_salt(mut base: String, salt: &str) -> String {
     base.push_str(salt);
 
     let mut hasher = Sha1::new();
@@ -59,7 +59,7 @@ pub fn hash_salt(mut base: String, salt: &str) -> String {
     encode_hex(hashed)
 }
 
-pub fn hash_pack(ids: Vec<i32>) -> String {
+pub fn hash_pack(ids: Vec<u32>) -> String {
 
     let mut hash: String = String::new();
 

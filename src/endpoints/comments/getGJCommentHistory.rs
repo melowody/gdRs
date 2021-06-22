@@ -10,15 +10,15 @@ use base64::encode;
 #[allow(dead_code)]
 #[derive(FromForm)]
 pub struct GetCommentHistForm<'f> {
-    userID: i32,
-    page: i32,
+    userID: u32,
+    page: u32,
     secret: &'f RawStr,
-    gameVersion: Option<i32>,
-    binaryVersion: Option<i32>,
+    gameVersion: Option<u32>,
+    binaryVersion: Option<u32>,
     gdw: Option<i32>,
-    mode: Option<i32>,
-    total: Option<i32>,
-    count: Option<i32>
+    mode: Option<u32>,
+    total: Option<u32>,
+    count: Option<u32>
 }
 #[warn(dead_code)]
 
@@ -34,13 +34,13 @@ pub fn getGJCommentHistory(data: Form<GetCommentHistForm>) -> String {
         1 => "likes".to_string(),
         _ => "commentID".to_string()
     };
-    let count: i32 = remove!(data.count, 10);
+    let count: u32 = remove!(data.count, 10);
 
     // Get a vector of Account Comments from the user id
     let comments: Vec<comment::LevelComment> = sql::CONN.lock().unwrap().exec_map(format!("SELECT * FROM comments WHERE authorID=:source_id AND type=:type_id ORDER BY {} DESC LIMIT {} OFFSET {}", mode, count, data.page * count), //  DESC LIMIT :res_count OFFSET :offset_num;
         mysql::params!{
             "source_id" => data.userID,
-            "type_id" => comment::CommentType::LevelComment as i32
+            "type_id" => comment::CommentType::LevelComment as u32
         },
         comment::LevelComment::from_row
     ).unwrap();
@@ -61,7 +61,7 @@ pub fn getGJCommentHistory(data: Form<GetCommentHistForm>) -> String {
     let num: Vec<Row> = sql::CONN.lock().unwrap().exec("SELECT count(*) FROM comments WHERE sourceID=:source_id AND type=:type_id",
         mysql::params! {
             "source_id" => data.userID,
-            "type_id" => comment::CommentType::AccountComment as i32
+            "type_id" => comment::CommentType::AccountComment as u32
         }
     ).unwrap();
     

@@ -7,7 +7,7 @@ use mysql::*;
 /// 
 /// * `account_id` - The account ID of the user
 /// * `gjp` - The gjp of the user
-pub fn verify(account_id: i32, gjp: String) -> bool {
+pub fn verify(account_id: u32, gjp: String) -> bool {
 
     // Create a hash using the passed ID and gjp
     let a: String = crypto::hash(gjp, account_id.to_string()).to_lowercase();

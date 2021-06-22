@@ -9,11 +9,11 @@ use rocket::http::RawStr;
 #[allow(dead_code)]
 #[derive(FromForm)]
 pub struct GetAccCommentForm<'f> {
-    accountID: i32,
-    page: i32,
+    accountID: u32,
+    page: u32,
     secret: &'f RawStr,
-    gameVersion: Option<i32>,
-    binaryVersion: Option<i32>,
+    gameVersion: Option<u32>,
+    binaryVersion: Option<u32>,
     gdw: Option<i32>
 }
 #[warn(dead_code)]
@@ -30,7 +30,7 @@ pub fn getGJAccountComments20(data: Form<GetAccCommentForm>) -> String {
     let comments: Vec<comment::AccComment> = sql::CONN.lock().unwrap().exec_map("SELECT * FROM comments WHERE sourceID=:source_id AND type=:type_id ORDER BY date DESC LIMIT 10 OFFSET :page",
         mysql::params!{
             "source_id" => data.accountID,
-            "type_id" => comment::CommentType::AccountComment as i32,
+            "type_id" => comment::CommentType::AccountComment as u32,
             "page" => data.page * 10,
         },
         comment::AccComment::from_row
@@ -48,7 +48,7 @@ pub fn getGJAccountComments20(data: Form<GetAccCommentForm>) -> String {
     let num: u32 = sql::CONN.lock().unwrap().exec_first("SELECT count(*) FROM comments WHERE sourceID=:source_id AND type=:type_id",
         mysql::params! {
             "source_id" => data.accountID,
-            "type_id" => comment::CommentType::AccountComment as i32
+            "type_id" => comment::CommentType::AccountComment as u32
         }
     ).unwrap().unwrap();
 

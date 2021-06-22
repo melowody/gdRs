@@ -3,8 +3,8 @@ use crate::types::misc::*;
 
 #[derive(Clone)]
 pub struct Gauntlet {
-    pub gauntlet_id: i32,
-    pub levels: Vec<i32>
+    pub gauntlet_id: u32,
+    pub levels: Vec<u32>
 }
 
 impl PartialEq for Gauntlet {
@@ -20,7 +20,7 @@ impl Gauntlet {
             gauntlet_id: row.take("gauntletID").unwrap(),
             levels: {
                 let value: String = row.take("levels").unwrap();
-                value.split(",").into_iter().map(|x| x.parse::<i32>().unwrap()).collect()
+                value.split(",").into_iter().map(|x| x.parse::<u32>().unwrap()).collect()
             }
         }
     }
@@ -28,11 +28,11 @@ impl Gauntlet {
 
 #[derive(Clone)]
 pub struct MapPack {
-    pub pack_id: i32,
+    pub pack_id: u32,
     pub name: String,
-    pub levels: Vec<i32>,
-    pub stars: i32,
-    pub coins: i32,
+    pub levels: Vec<u32>,
+    pub stars: u32,
+    pub coins: u32,
     pub difficulty: Difficulty,
     pub text_color: Color,
     pub bar_color: Color
@@ -52,11 +52,11 @@ impl MapPack {
             name: row.take("name").unwrap(),
             levels: {
                 let value: String = row.take("levels").unwrap();
-                value.split(",").into_iter().map(|x| x.parse::<i32>().unwrap()).collect()
+                value.split(",").into_iter().map(|x| x.parse::<u32>().unwrap()).collect()
             },
             stars: row.take("stars").unwrap(),
             coins: row.take("coins").unwrap(),
-            difficulty: Difficulty::from_int(row.take::<i32,_>("difficulty").unwrap()),
+            difficulty: Difficulty::from_int(row.take::<u32,_>("difficulty").unwrap()),
             text_color: Color::from_string(row.take::<String,_>("textColor").unwrap()),
             bar_color: Color::from_string(row.take::<String,_>("barColor").unwrap()),
         }

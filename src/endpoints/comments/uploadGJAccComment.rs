@@ -10,14 +10,14 @@ use std::time::*;
 #[allow(dead_code)]
 #[derive(FromForm)]
 pub struct UploadAccCommentForm<'f> {
-    accountID: i32,
+    accountID: u32,
     gjp: &'f RawStr,
     comment: &'f RawStr,
     secret: &'f RawStr,
-    gameVersion: Option<i32>,
-    binaryVersion: Option<i32>,
+    gameVersion: Option<u32>,
+    binaryVersion: Option<u32>,
     gdw: Option<i32>,
-    ctype: Option<i32>,
+    ctype: Option<u32>,
     chk: Option<&'f RawStr>
 }
 #[warn(dead_code)]

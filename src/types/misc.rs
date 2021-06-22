@@ -35,7 +35,7 @@ pub enum Difficulty {
 }
 
 impl Difficulty {
-    pub fn from_int(i: i32) -> Difficulty {
+    pub fn from_int(i: u32) -> Difficulty {
         match i {
             1 => Difficulty::EASY,
             2 => Difficulty::NORMAL,

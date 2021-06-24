@@ -33,7 +33,8 @@ fn main(){
         uploadGJComment::uploadGJComment21, uploadGJComment::uploadGJComment21GET,
         getGJGauntlets::getGJGauntlets21, getGJGauntlets::getGJGauntlets21GET,
         getGJMapPacks::getGJMapPacks21, getGJMapPacks::getGJMapPacks21GET,
-        deleteGJLevelUser::deleteGJLevelUser20, deleteGJLevelUser::deleteGJLevelUser20GET
+        deleteGJLevelUser::deleteGJLevelUser20, deleteGJLevelUser::deleteGJLevelUser20GET,
+        downloadGJLevel::downloadGJLevel22, downloadGJLevel::downloadGJLevel22GET
     ])
     .launch();
 }

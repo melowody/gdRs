@@ -1,5 +1,4 @@
 use crate::utils::*;
-use crate::types::*;
 use mysql::*;
 use mysql::prelude::*;
 use rocket::request::Form;

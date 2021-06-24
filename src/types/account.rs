@@ -29,7 +29,7 @@ impl Account {
     }
 
     pub fn get_by_id(&mut self, account_id: u32) {
-        let mut row: Row = sql::CONN.lock().unwrap().exec_first("SELECT userName, pass, iconID, playerColor, playerColor2, iconType, special FROM accounts WHERE accountID=:id",
+        let mut row: Row = sql::CONN.lock().unwrap().exec_first("SELECT userName, pass, iconID, playerColor, playerColor2, iconType+0, special FROM accounts WHERE accountID=:id",
             mysql::params! {
                 "id" => account_id
             }

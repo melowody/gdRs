@@ -1,0 +1,78 @@
+use mysql::*;
+use base64::encode;
+
+pub struct Level {
+    pub level_id: u32,
+    pub author_id: u32,
+    pub stars: u32,
+    pub name: String,
+    pub description: String,
+    pub level_string: String,
+    pub version: u32,
+    pub difficulty_denom: u32,
+    pub difficulty_num: u32,
+    pub downloads: u32,
+    pub official_song: u32,
+    pub game_version: u32,
+    pub likes: i32,
+    pub demon: bool,
+    pub demon_difficulty: u32,
+    pub auto: bool,
+    pub feature_score: u32,
+    pub epic: bool,
+    pub objects: u32,
+    pub length: u32,
+    pub copied_id: u32,
+    pub two_player: bool,
+    pub upload_date: u64,
+    pub update_date: u64,
+    pub custom_song_id: u32,
+    pub extra_string: String,
+    pub coins: u32,
+    pub verified_coins: bool,
+    pub stars_requested: u32,
+    pub editor_time: u32,
+    pub editor_time_w_copies: u32,
+    pub ldm: bool,
+    pub pass: String
+}
+
+impl Level {
+    pub fn from_row(row: &mut Row) -> Level {
+        Level {
+            level_id: row.take("levelID").unwrap(),
+            author_id: row.take("authorID").unwrap(),
+            stars: row.take("stars").unwrap(),
+            name: row.take("name").unwrap(),
+            description: encode(row.take::<String,_>("description").unwrap()),
+            level_string: row.take("levelString").unwrap(),
+            version: row.take("version").unwrap(),
+            difficulty_denom: row.take("difficultyDenom").unwrap(),
+            difficulty_num: row.take("difficultyNum").unwrap(),
+            downloads: row.take("downloads").unwrap(),
+            official_song: row.take("officialSong").unwrap(),
+            game_version: row.take("gameVersion").unwrap(),
+            likes: row.take("likes").unwrap(),
+            demon: row.take("demon").unwrap(),
+            demon_difficulty: row.take("demonDifficulty").unwrap(),
+            auto: row.take("auto").unwrap(),
+            feature_score: row.take("featureScore").unwrap(),
+            epic: row.take("epic").unwrap(),
+            objects: row.take("objects").unwrap(),
+            length: row.take("length").unwrap(),
+            copied_id: row.take("copiedID").unwrap(),
+            two_player: row.take("twoPlayer").unwrap(),
+            upload_date: row.take("uploaddate").unwrap(),
+            update_date: row.take("updatedate").unwrap(),
+            custom_song_id: row.take("customSongID").unwrap(),
+            extra_string: row.take("extraString").unwrap(),
+            coins: row.take("coins").unwrap(),
+            verified_coins: row.take("verifiedCoins").unwrap(),
+            stars_requested: row.take("starsRequested").unwrap(),
+            editor_time: row.take("editorTime").unwrap(),
+            editor_time_w_copies: row.take("editorTimeWCopies").unwrap(),
+            ldm: row.take("LDM").unwrap(),
+            pass: row.take("pass").unwrap()
+        }
+    }
+}

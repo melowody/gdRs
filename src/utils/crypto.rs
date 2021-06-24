@@ -95,3 +95,17 @@ pub fn hash_pack(ids: Vec<u32>) -> String {
 
     encode_hex(hashed)
 }
+
+pub fn hash_level_string(level_string: String) -> String {
+
+    let mut lstring: String = String::new();
+    let mut counter: i16 = 0;
+
+    for k in (0..level_string.len()).step_by(level_string.len() / 40) {
+        if counter == 40 { break; }
+        lstring.push(level_string.as_bytes()[k] as char);
+        counter += 1;
+    }
+
+    sha1_salt(lstring, "xI25fpAapCQg")
+}

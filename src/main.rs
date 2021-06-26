@@ -34,7 +34,8 @@ fn main(){
         getGJGauntlets::getGJGauntlets21, getGJGauntlets::getGJGauntlets21GET,
         getGJMapPacks::getGJMapPacks21, getGJMapPacks::getGJMapPacks21GET,
         deleteGJLevelUser::deleteGJLevelUser20, deleteGJLevelUser::deleteGJLevelUser20GET,
-        downloadGJLevel::downloadGJLevel22, downloadGJLevel::downloadGJLevel22GET
+        downloadGJLevel::downloadGJLevel22, downloadGJLevel::downloadGJLevel22GET,
+        getGJDailyLevel::getGJDailyLevel, getGJDailyLevel::getGJDailyLevelGET
     ])
     .launch();
 }
